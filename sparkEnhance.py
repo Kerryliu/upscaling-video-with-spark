@@ -11,7 +11,7 @@ import enhance
 import shutil
 
 #Video file:
-video = "video240Short.m4v"
+video = "540.m4v"
 #partitions should be 3~4x the number of cores on the cluster
 partitions = 8
 
@@ -19,7 +19,7 @@ def enhanceImg(image):
     key = image[0]
     image = Image.open(io.BytesIO(image[1]))
     image = numpy.asarray(image, dtype=numpy.uint8)
-    image = image.reshape((240,360,3))
+    image = image.reshape((540,720,3))
     enhancer = enhance.NeuralEnhancer(loader=False)
     out = enhancer.process(image)
     name = os.path.basename(key)
@@ -33,7 +33,7 @@ os.makedirs("Output/UnprocessedFrames")
 os.makedirs("Output/ProcessedFrames")
 
 #extract audio
-command = ["ffmpeg", "-i", "video240Short.m4v", "Output/audio.mp3"]
+command = ["ffmpeg", "-i", video, "Output/audio.mp3"]
 call(command)
 
 #Extract frames
